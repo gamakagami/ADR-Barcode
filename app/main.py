@@ -9,10 +9,11 @@ def cli():
     p = argparse.ArgumentParser(description="ADR-Barcode CLI")
     p.add_argument("--data", required=True, help="Data to encode in the barcode")
     p.add_argument("--out", default="out/barcode", help="Output file path without extension")
+    p.add_argument("--type", default="code128", help="Barcode type (default: code128)")
     args = p.parse_args()
     Path("out").mkdir(parents=True, exist_ok=True)
     try:
-        name = generate_barcode(args.data, args.out)
+        name = generate_barcode(args.data, args.out, args.type)
         print("Saved:", name)
     except ValueError as e:
         print(f"Error: {e}", file=sys.stderr)
